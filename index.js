@@ -4,8 +4,10 @@
  */
 
 //Dependencies
-var Q = require('q'),
-  https = require('https');
+var Q = require('q');
+var https = require('https');
+var _ = require('lodash');
+
 
 //REST API Config Defaults
 var defaultHost = 'cp.pushwoosh.com',
@@ -49,7 +51,7 @@ function PushClient(appid, tkn, options) {
 
     var client=this;
     var deferred = Q.defer();
-    var sendOptions=defaultConfig;
+    var sendOptions = _.extend({}, defaultConfig);
     sendOptions.notifications.push(options);
 
     client.request(sendOptions,"createMessage").then(function(data){
